@@ -426,6 +426,12 @@ void Adafruit_GFX::write(uint8_t c) {
 #endif
 }
 
+void Adafruit_GFX::println(char * str)
+{
+  while(*str)
+    write(*str++);
+}
+
 // Draw a character
 void Adafruit_GFX::drawChar(int16_t x, int16_t y, unsigned char c,
 			    uint16_t color, uint16_t bg, uint8_t size) {

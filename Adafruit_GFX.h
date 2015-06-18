@@ -67,6 +67,7 @@ class Adafruit_GFX {
 #else
   virtual void   write(uint8_t);
 #endif
+  void println(char * str);
 
   int16_t height(void) const;
   int16_t width(void) const;

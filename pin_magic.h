@@ -86,6 +86,8 @@
     PORTC = (d); \
     WR_STROBE; } // STROBEs are defined later
 
+  #define write8 write8inline
+
   // Read 8-bit value from LCD data lines.  The signle argument
   // is a destination variable; this isn't a function and doesn't
   // return a value in the conventional sense.

@@ -92,6 +92,22 @@ Adafruit_TFTLCD::Adafruit_TFTLCD(void) : Adafruit_GFX(TFTWIDTH, TFTHEIGHT) {
   init();
 }
 
+// Constructor for shield (fixed LCD control lines)
+// with stdlib functionality
+Adafruit_TFTLCD::Adafruit_TFTLCD(FILE * lcdout) : Adafruit_GFX(TFTWIDTH, TFTHEIGHT) {
+  this->lcdout = lcdout;
+  init();
+}
+
+void Adafruit_TFTLCD::printf(const char * fmt, ...)
+{
+  va_list va;
+
+  va_start(va, &fmt);
+  vfprintf(lcdout, fmt, va);
+  va_end(va);
+}
+
 // Initialization common to both shield & breakout configs
 void Adafruit_TFTLCD::init(void) {
 

@@ -12,6 +12,11 @@
  #include "Arduino-Compat.h"
 #endif
 
+#ifdef __AVR__
+        #include <stdio.h>
+        #include <stdarg.h>
+#endif
+
 #include "Adafruit_GFX.h"
 
 // **** IF USING THE LCD BREAKOUT BOARD, COMMENT OUT THIS NEXT LINE. ****
@@ -25,6 +30,7 @@ class Adafruit_TFTLCD : public Adafruit_GFX {
 
   Adafruit_TFTLCD(uint8_t cs, uint8_t cd, uint8_t wr, uint8_t rd, uint8_t rst);
   Adafruit_TFTLCD(void);
+  Adafruit_TFTLCD(FILE * lcdout);
 
   void     begin(uint16_t id = 0x9325);
   void     drawPixel(int16_t x, int16_t y, uint16_t color);
@@ -44,6 +50,7 @@ class Adafruit_TFTLCD : public Adafruit_GFX {
            readPixel(int16_t x, int16_t y),
            readID(void);
   uint32_t readReg(uint8_t r);
+  void printf(const char * fmt, ...);
 
  private:
 
@@ -86,6 +93,7 @@ class Adafruit_TFTLCD : public Adafruit_GFX {
 	uint8_t           csPinSet  ,  cdPinSet  ,  wrPinSet  ,  rdPinSet  ,
 					  csPinUnset,  cdPinUnset,  wrPinUnset,  rdPinUnset,
 					  _reset;
+    FILE * lcdout;
   #endif
   #if defined(__SAM3X8E__)
     Pio *csPort    , *cdPort    , *wrPort    , *rdPort;

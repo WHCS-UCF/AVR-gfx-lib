@@ -413,6 +413,11 @@ void Adafruit_GFX::write(uint8_t c) {
     cursor_x  = 0;
   } else if (c == '\r') {
     // skip em
+  } else if (c ==  '\b') {
+    if (cursor_x > textsize*6)
+      cursor_x -= textsize*6;
+    else
+      cursor_x = 0;
   } else {
     drawChar(cursor_x, cursor_y, c, textcolor, textbgcolor, textsize);
     cursor_x += textsize*6;
@@ -426,10 +431,16 @@ void Adafruit_GFX::write(uint8_t c) {
 #endif
 }
 
-void Adafruit_GFX::println(char * str)
+size_t Adafruit_GFX::println(char * str)
 {
-  while(*str)
+  size_t amt = 0;
+
+  while(*str) {
     write(*str++);
+    amt++;
+  }
+
+  return amt;
 }
 
 // Draw a character
